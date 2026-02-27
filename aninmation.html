@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Diagonal Animation</title>
+  </head>
+  <body>
+    <svg width="200" height="200">
+      <rect
+        x="10"
+        y="10"
+        width="180"
+        height="180"
+        stroke="red"
+        fill="black"
+        stroke-width="3"
+      />
+
+      <line
+        id="line"
+        x1="10"
+        y1="10"
+        x2="190"
+        y2="190"
+        stroke="white"
+        fill="black"
+        stroke-width="3"
+      />
+    </svg>
+
+    <script>
+      const line = document.getElementById("line");
+
+      const length = line.getTotalLength();
+
+      line.style.strokeDasharray = length;
+      line.style.strokeDashoffset = length;
+
+      // Animation
+      //   line.animate(keyframes, options)
+      line.animate([{ strokeDashoffset: length }, { strokeDashoffset: 0 }], {
+        duration: 2000,
+        easing: "ease-in-out",
+        fill: "forwards",
+        iterations: Infinity,
+      });
+    </script>
+  </body>
+</html>
