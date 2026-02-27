@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>boxescanvas</title>
+  </head>
+  <body>
+    <!doctype html>
+    <html>
+      <head>
+        <meta charset="UTF-8" />
+        <title>Canvas Gradient</title>
+      </head>
+      <body>
+        <canvas id="myCanvas" width="600" height="500"></canvas>
+
+        <script>
+          const canvas = document.getElementById("myCanvas");
+          const ctx = canvas.getContext("2d");
+
+          ctx.lineWidth = 4;
+          ctx.strokeStyle = "black";
+          ctx.strokeRect(10, 10, 580, 480);
+
+          let blueGradient = ctx.createLinearGradient(0, 50, 0, 250);
+          blueGradient.addColorStop(0, "blue");
+          blueGradient.addColorStop(1, "white");
+
+          ctx.fillStyle = blueGradient;
+          ctx.fillRect(50, 50, 500, 200);
+
+          let greenGradient = ctx.createLinearGradient(0, 250, 0, 450);
+          greenGradient.addColorStop(0, "green");
+          greenGradient.addColorStop(1, "white");
+
+          ctx.fillStyle = greenGradient;
+          ctx.fillRect(50, 250, 500, 200);
+
+          ctx.beginPath();
+          ctx.moveTo(225, 175);
+          ctx.lineTo(375, 175);
+          ctx.lineTo(375, 325);
+          ctx.moveTo(225, 175);
+          ctx.lineTo(225, 325);
+          ctx.strokeStyle = "black";
+          ctx.lineWidth = 4;
+          ctx.stroke();
+        </script>
+      </body>
+    </html>
+  </body>
+</html>
