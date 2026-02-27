@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie</title>
+</head>
+
+    <div class="container">
+        <label>Key Name:</label>
+        <input type="text" id="keyInput"> <br><br>
+        
+        <label>Value:</label>
+        <input type="text" id="valInput"><br><br>
+        
+        <div class="button-group">
+            <button class="save" onclick="testSave()">Save Data</button><br><br>
+            <button class="find" onclick="testFind()">Find Value</button><br><br>
+            <button class="del" onclick="testDelete()">Delete Key</button><br><br>
+            
+            <button class="check" onclick="testHas()">Check If Exists</button><br><br>
+            <button class="list" onclick="testList()">Show All List</button><br><br>
+        </div>
+
+        <div id="status-box">
+            <strong>Console Output:</strong>
+            <div id="output"></div>
+        </div>
+    </div>
+
+    <script src="cookielib.js"></script>
+
+    <script>
+        const k = document.getElementById('keyInput');
+        const v = document.getElementById('valInput');
+        const out = document.getElementById('output');
+
+        // 1. Test saveData()
+        function testSave() {
+            if(!k.value || !v.value) {
+                out.innerText = " Please enter both Key and Value";
+                return;
+            }
+            saveData(k.value, v.value);
+            out.innerText = " Saved: " + k.value + " = " + v.value;
+        }
+
+        // 2. Test getData()
+        function testFind() {
+            const result = getData(k.value);
+            if(result) {
+                v.value = result;
+                out.innerText = " Found Value: " + result;
+            } else {
+                out.innerText = " Key '" + k.value + "' not found.";
+            }
+        }
+
+        // 3. Test removeData()
+        function testDelete() {
+            removeData(k.value);
+            out.innerText = " Deleted: " + k.value;
+            v.value = "";
+        }
+
+        // 4. Test hasCookie() - NEW
+        function testHas() {
+            const exists = hasCookie(k.value);
+            out.innerHTML = exists 
+                ? " Yes, <strong>" + k.value + "</strong> exists in storage." 
+                : " No, <strong>" + k.value + "</strong> does not exist.";
+        }
+
+        // 5. Test allCookieList() - NEW
+        function testList() {
+            const all = allCookieList();
+            const keys = Object.keys(all);
+            
+            if(keys.length === 0) {
+                out.innerText = " Storage is empty.";
+                return;
+            }
+
+            let listHtml = "<ul>";
+            for(let key in all) {
+                listHtml += "<li><strong>" + key + "</strong>: " + all[key] + "</li>";
+            }
+            listHtml += "</ul>";
+            out.innerHTML = listHtml;
+        }
+    </script>
+    </body>
+</html>
